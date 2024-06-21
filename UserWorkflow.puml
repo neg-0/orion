@@ -1,0 +1,38 @@
+@startuml
+actor User
+
+participant "Orion Frontend" as Frontend
+participant "Orion Backend" as Backend
+participant "OpenAI API" as OpenAI
+
+User -> Frontend: Provide initial prompt
+Frontend -> Backend: Send prompt
+Backend -> OpenAI: Analyze prompt
+
+OpenAI -> Backend: Return requirements and design
+Backend -> Frontend: Display requirements and design
+
+User -> Frontend: Review and approve design
+Frontend -> Backend: Confirm approval
+
+Backend -> OpenAI: Generate code
+OpenAI -> Backend: Return generated code
+
+Backend -> Frontend: Display generated code
+User -> Frontend: Review generated code
+
+Frontend -> Backend: Start testing
+Backend -> OpenAI: Generate tests
+OpenAI -> Backend: Return test results
+
+Backend -> Frontend: Display test results
+User -> Frontend: Review test results
+
+Frontend -> Backend: Deploy application
+Backend -> CI/CD: Set up deployment pipeline
+CI/CD -> Backend: Confirm deployment
+
+Backend -> Frontend: Display deployment status
+User -> Frontend: Monitor and interact
+
+@enduml

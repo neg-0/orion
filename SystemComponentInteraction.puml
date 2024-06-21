@@ -1,0 +1,38 @@
+@startuml
+skinparam componentStyle rectangle
+
+package "Orion System" {
+    [Frontend] << React/Vite >>
+    [Backend] << Node.js/Express >>
+    [Database] << PostgreSQL/MongoDB >>
+    [CI/CD Pipeline] << GitHub Actions >>
+    [Logging] << Winston >>
+}
+
+package "External Systems" {
+    [OpenAI API] << GPT-4 >>
+    [Project Management Tools] << Jira/GitHub Issues >>
+}
+
+[Frontend] -> [Backend] : Send user prompt
+[Backend] -> [OpenAI API] : Analyze prompt
+[OpenAI API] -> [Backend] : Return requirements and design
+
+[Backend] -> [Frontend] : Display requirements and design
+[Frontend] -> [Backend] : Confirm approval
+
+[Backend] -> [OpenAI API] : Generate code
+[OpenAI API] -> [Backend] : Return generated code
+[Backend] -> [Frontend] : Display generated code
+
+[Backend] -> [OpenAI API] : Generate tests
+[OpenAI API] -> [Backend] : Return test results
+[Backend] -> [Frontend] : Display test results
+
+[Backend] -> [CI/CD Pipeline] : Set up deployment pipeline
+[CI/CD Pipeline] -> [Backend] : Confirm deployment
+
+[Backend] -> [Logging] : Log activities
+[Frontend] -> [Project Management Tools] : Sync tasks and documentation
+
+@enduml
