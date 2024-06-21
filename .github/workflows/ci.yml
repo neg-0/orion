@@ -1,0 +1,30 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Install dependencies and build frontend
+        working-directory: ./orion-frontend
+        run: |
+          npm install
+          npm run build
+
+      - name: Install dependencies and build backend
+        working-directory: ./orion-backend
+        run: |
+          npm install
+          npm run build
+
+      - name: Run tests
+        run: |
+          npm test
