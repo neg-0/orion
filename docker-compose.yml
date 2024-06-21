@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  frontend:
+    build: ./orion-frontend
+    ports:
+      - "3000:80"
+  backend:
+    build: ./orion-backend
+    ports:
+      - "3001:3000"
