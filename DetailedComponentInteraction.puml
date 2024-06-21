@@ -1,0 +1,55 @@
+@startuml component_diagram
+skinparam componentStyle rectangle
+
+package "Backend" {
+    [API Controller] << Express >>
+    [Prompt Analyzer] << OpenAI >>
+    [Code Generator] << OpenAI >>
+    [Test Generator] << OpenAI >>
+    [Deployer] << CI/CD >>
+    [Logger] << Winston >>
+    [Database] << PostgreSQL/MongoDB >>
+}
+
+package "External Systems" {
+    [OpenAI API] << GPT-4 >>
+    [CI/CD Pipeline] << GitHub Actions >>
+    [Project Management Tools] << Jira/GitHub Issues >>
+}
+
+[Frontend] -> [API Controller] : Send user prompt
+[API Controller] -> [Prompt Analyzer] : Analyze prompt
+[Prompt Analyzer] -> [OpenAI API] : Request analysis
+[OpenAI API] -> [Prompt Analyzer] : Return analysis
+
+[Prompt Analyzer] -> [API Controller] : Send requirements and design
+[API Controller] -> [Frontend] : Display requirements and design
+
+[Frontend] -> [API Controller] : Confirm approval
+[API Controller] -> [Code Generator] : Generate code
+[Code Generator] -> [OpenAI API] : Request code generation
+[OpenAI API] -> [Code Generator] : Return generated code
+
+[Code Generator] -> [API Controller] : Send generated code
+[API Controller] -> [Frontend] : Display generated code
+
+[API Controller] -> [Test Generator] : Generate tests
+[Test Generator] -> [OpenAI API] : Request test generation
+[OpenAI API] -> [Test Generator] : Return test results
+
+[Test Generator] -> [API Controller] : Send test results
+[API Controller] -> [Frontend] : Display test results
+
+[API Controller] -> [Deployer] : Set up deployment pipeline
+[Deployer] -> [CI/CD Pipeline] : Trigger deployment
+[CI/CD Pipeline] -> [Deployer] : Confirm deployment
+
+[Deployer] -> [API Controller] : Send deployment status
+[API Controller] -> [Frontend] : Display deployment status
+
+[API Controller] -> [Logger] : Log activities
+[API Controller] -> [Database] : Store project data
+
+[Frontend] -> [Project Management Tools] : Sync tasks and documentation
+
+@enduml
