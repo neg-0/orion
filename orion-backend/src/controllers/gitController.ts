@@ -3,7 +3,6 @@ import { simpleGit } from 'simple-git';
 simpleGit();
 
 const baseDir = process.env.GIT_BASE_DIR;
-const repoUrl = process.env.GIT_REPO_URL;
 
 console.log(baseDir, 'baseDir');
 
@@ -15,7 +14,7 @@ const options = {
 
 export const git = simpleGit(options);
 
-export async function cloneBranch(branchName) {
+export async function cloneBranch(repoUrl: string, branchName: string) {
   try {
     await git.clone(repoUrl);
     await git.checkout(branchName);
@@ -26,7 +25,7 @@ export async function cloneBranch(branchName) {
   }
 }
 
-export async function createBranch(fromBranch, toBranch) {
+export async function createBranch(fromBranch: string, toBranch: string) {
   try {
     await git.checkoutBranch(toBranch, fromBranch);
   } catch (error) {

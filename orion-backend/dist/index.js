@@ -7,14 +7,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import bcrypt from 'bcrypt';
 import { exec } from 'child_process';
 import cors from 'cors';
 import 'dotenv/config'; // Ensure this is at the very top
 import express from 'express';
 import fs from 'fs';
-import jwt from 'jsonwebtoken';
-import openai from './openai.js';
+import openai from './services/openai.js';
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(express.json());
@@ -65,24 +63,6 @@ app.post('/api/generate-code', (req, res) => __awaiter(void 0, void 0, void 0, f
     }
     catch (error) {
         handleError(error, res);
-    }
-}));
-const users = {}; // Replace with database in real app
-app.post('/api/register', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { username, password } = req.body;
-    const hashedPassword = yield bcrypt.hash(password, 10);
-    users[username] = hashedPassword;
-    res.status(201).json({ message: 'User registered' });
-}));
-app.post('/api/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { username, password } = req.body;
-    const hashedPassword = users[username];
-    if (hashedPassword && (yield bcrypt.compare(password, hashedPassword))) {
-        const token = jwt.sign({ username }, 'secret-key');
-        res.json({ token });
-    }
-    else {
-        res.status(401).json({ message: 'Invalid credentials' });
     }
 }));
 function handleError(error, res) {

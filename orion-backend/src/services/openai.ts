@@ -6,7 +6,7 @@ if (!apiKey) {
 }
 
 const openai = new OpenAI({
-  apiKey, // This ensures apiKey is always a string
+  apiKey
 });
 
 export default openai;

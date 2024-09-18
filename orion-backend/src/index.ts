@@ -1,21 +1,23 @@
-import bcrypt from 'bcrypt';
 import { exec } from 'child_process';
 import cors from 'cors';
 import 'dotenv/config'; // Ensure this is at the very top
 import express from 'express';
 import fs from 'fs';
-import jwt from 'jsonwebtoken';
-import openai from './openai.js';
+import morgan from './middleware/morgan';
+import treesitter from './middleware/treeSitter';
+import routes from './routes';
+import openai from './services/openai.js';
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(morgan);
 app.use(express.json());
 app.use(cors());
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+const router = express.Router();
+
+app.use('/', routes);
 
 app.post('/api/ai-response', async (req, res) => {
   const { prompt } = req.body;
@@ -66,27 +68,6 @@ app.post('/api/generate-code', async (req, res) => {
   }
 });
 
-const users: { [key: string]: string } = {}; // Replace with database in real app
-
-app.post('/api/register', async (req, res) => {
-  const { username, password } = req.body;
-  const hashedPassword = await bcrypt.hash(password, 10);
-  users[username] = hashedPassword;
-  res.status(201).json({ message: 'User registered' });
-});
-
-app.post('/api/login', async (req, res) => {
-  const { username, password } = req.body;
-  const hashedPassword = users[username];
-  if (hashedPassword && await bcrypt.compare(password, hashedPassword)) {
-    const token = jwt.sign({ username }, 'secret-key');
-    res.json({ token });
-  } else {
-    res.status(401).json({ message: 'Invalid credentials' });
-  }
-});
-
-
 function handleError(error: unknown, res: express.Response) {
   if (isErrorObject(error)) {
     console.error(error.message);
@@ -111,5 +92,8 @@ function isErrorObject(error: unknown): error is { message: string; code: string
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+// Test the tree-sitter code
+treesitter();
 
 export default app;
