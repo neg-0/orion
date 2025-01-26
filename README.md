@@ -4,7 +4,47 @@
 
 ## Project Overview
 
-**Orion** is an AI-automated software development lifecycle tool designed to achieve nearly 100% AI-driven development of software applications from an initial text prompt. It allows user intervention at any point to adjust or redirect the development process.
+**Orion** is a self-evolving AI system designed to autonomously improve its own codebase through automated software development lifecycle (SDLC) processes. Using a network of specialized AI agents, Orion can analyze, design, implement, test, and deploy improvements to itself, while allowing human oversight and intervention at any stage.
+
+### Key Features
+
+- **Self-Improvement**: Continuously analyzes its own codebase and implements improvements
+- **AI Agent Network**: Specialized AI agents working together to handle different SDLC aspects
+- **Human Oversight**: Allows developer intervention and guidance at any point
+- **Full SDLC Automation**: From requirements to deployment
+- **Version Control**: Maintains its own evolution history
+
+### AI Agent Architecture
+
+1. **Analyzer Agent**:
+   - Continuously evaluates codebase quality
+   - Identifies areas for improvement
+   - Generates improvement proposals
+
+2. **Architect Agent**:
+   - Designs system improvements
+   - Ensures architectural consistency
+   - Maintains system documentation
+
+3. **Developer Agent**:
+   - Implements code changes
+   - Follows best practices
+   - Maintains code quality
+
+4. **Testing Agent**:
+   - Generates and runs tests
+   - Validates improvements
+   - Ensures system stability
+
+5. **DevOps Agent**:
+   - Manages deployments
+   - Monitors system health
+   - Handles infrastructure
+
+6. **Coordinator Agent**:
+   - Orchestrates other agents
+   - Prioritizes improvements
+   - Manages workflow
 
 ---
 
@@ -278,5 +318,137 @@ We welcome contributions from the community! To contribute:
 This project is licensed under the MIT License.
 
 ---
+
+## Environment Setup
+
+### Environment Variables
+
+The project requires several environment variables to be set up. Template files are provided:
+
+1. Backend Environment (`orion-backend/.env`):
+   - Copy `orion-backend/.env.template` to `orion-backend/.env`
+   - Fill in your specific values
+
+2. AI Service Environment (`ai/.env`):
+   - Copy `ai/.env.template` to `ai/.env`
+   - Fill in your OpenAI API key and preferred model settings
+
+3. AI Configuration (`ai/OAI_CONFIG_LIST`):
+   - Copy `ai/OAI_CONFIG_LIST.template` to `ai/OAI_CONFIG_LIST`
+   - Configure your AI provider settings
+
+### Development Workflow
+
+1. **Setup Environment**:
+   ```sh
+   # Copy environment templates
+   cp orion-backend/.env.template orion-backend/.env
+   cp ai/.env.template ai/.env
+   cp ai/OAI_CONFIG_LIST.template ai/OAI_CONFIG_LIST
+   
+   # Edit environment files with your values
+   ```
+
+2. **Start Development Server**:
+   ```sh
+   # Terminal 1: Start backend
+   cd orion-backend
+   npm run dev
+
+   # Terminal 2: Start frontend
+   cd orion-frontend
+   npm run dev
+   ```
+
+3. **Testing**:
+   ```sh
+   # Run backend tests
+   cd orion-backend
+   npm test
+
+   # Run frontend tests
+   cd orion-frontend
+   npm test
+   ```
+
+### System Requirements
+
+- CPU: 4+ cores recommended
+- RAM: 8GB minimum, 16GB recommended
+- Storage: 1GB free space minimum
+- GPU: Not required, but recommended for larger models
+- Internet: Stable connection required for AI API calls
+
+### Troubleshooting
+
+Common issues and solutions:
+
+1. **API Key Issues**:
+   - Ensure all API keys are correctly set in environment files
+   - Verify API key permissions and quotas
+
+2. **Database Connection**:
+   - Check if PostgreSQL service is running
+   - Verify database credentials in .env file
+
+3. **Build Errors**:
+   - Clear node_modules and package-lock.json
+   - Run `npm clean-install`
+
+## Self-Improvement Workflow
+
+1. **Analysis Phase**:
+   - Analyzer Agent continuously monitors codebase
+   - Identifies potential improvements
+   - Generates improvement proposals
+
+2. **Design Phase**:
+   - Architect Agent reviews proposals
+   - Creates detailed design specifications
+   - Updates system documentation
+
+3. **Implementation Phase**:
+   - Developer Agent implements changes
+   - Follows established patterns
+   - Maintains code quality
+
+4. **Validation Phase**:
+   - Testing Agent verifies changes
+   - Runs comprehensive test suite
+   - Reports results
+
+5. **Deployment Phase**:
+   - DevOps Agent deploys changes
+   - Monitors system stability
+   - Rolls back if needed
+
+6. **Learning Phase**:
+   - System learns from successful/failed changes
+   - Updates improvement strategies
+   - Refines decision-making process
+
+## Human Oversight
+
+While Orion is designed to operate autonomously, it maintains several checkpoints for human oversight:
+
+1. **Improvement Proposals**:
+   - Review and approve proposed changes
+   - Modify improvement priorities
+   - Add constraints or requirements
+
+2. **Design Review**:
+   - Evaluate architectural decisions
+   - Provide design guidance
+   - Set design constraints
+
+3. **Code Review**:
+   - Review generated code
+   - Suggest modifications
+   - Approve/reject changes
+
+4. **Deployment Approval**:
+   - Control deployment timing
+   - Set deployment constraints
+   - Monitor deployment impact
 
 This README file provides a comprehensive overview of Orion, including installation instructions, usage guidelines, and project details. It should help users understand and contribute to the project effectively.
